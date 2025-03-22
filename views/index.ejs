@@ -440,7 +440,7 @@
           return;
       }
 
-      const response = await fetch(`http://localhost:3000/search?query=${query}`);
+      const response = await fetch(`https://traveltracker-2duw.onrender.com/search?query=${query}`);
       const suggestions = await response.json();
 
       suggestionsBox.innerHTML = "";
