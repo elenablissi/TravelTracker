@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Member</title>
+  <link rel="icon" type="image/x-icon" href="./assets/logo1.png">
+  <link rel="stylesheet" href="./styles/new.css">
+
+</head>
+
+<body>
+  <section class="map-background">
+    <img src="./assets/map-svg.svg" class="map-background-svg" alt="Map Background" />
+  </section>
+
+  <div class="container">
+    <h1>Add a Family Member</h1>
+    <form action="/new" method="post">
+      <div class="input-container">
+        <input type="text" id="name" name="name" maxlength="15"  required placeholder=" ">
+        <label for="name" class="label-name">What's Your Name?</label>       
+      </div>
+
+      <p>Pick a Color:</p>
+      <input type="radio" name="color" id="red" value="#db2828" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="red"><span class="red"></span></label>
+
+      <input type="radio" name="color" id="green" value="#21ba45" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="green"><span class="green"></span></label>
+
+      <input type="radio" name="color" id="yellow" value="#fbbd08" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="yellow"><span class="yellow"></span></label>
+
+      <input type="radio" name="color" id="olive" value="#b5cc18" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="olive"><span class="olive"></span></label>
+
+      <input type="radio" name="color" id="orange" value="#f2711c" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="orange"><span class="orange"></span></label>
+
+      <input type="radio" name="color" id="teal" value="#00b5ad" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="teal"><span class="teal"></span></label>
+
+      <input type="radio" name="color" id="blue" value="#2185d0" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="blue"><span class="blue"></span></label>
+
+      <input type="radio" name="color" id="violet" value="#6435c9" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="violet"><span class="violet"></span></label>
+
+      <input type="radio" name="color" id="purple" value="#a333c8" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="purple"><span class="purple"></span></label>
+
+      <input type="radio" name="color" id="pink" value="#e03997" onclick="document.getElementById('selectedColor').value = value;" />
+      <label for="pink"><span class="pink"></span></label>
+      <br><input type="text" id="selectedColor" style="opacity: 0; height: 1; margin: 0; padding: 0;" required/>
+      
+      <div class="spacer"></div>
+      
+      <button type="submit">Add</button>
+      <button type="button" onClick="location.href='/'">Cancel</button>
+      
+    </form>
+  </div>
+</body>   
+
+</html>
+ 

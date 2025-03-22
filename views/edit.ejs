@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Member</title>
+  <link rel="icon" type="image/x-icon" href="./assets/logo1.png">
+  <link rel="stylesheet" href="./styles/new.css">
+</head>
+
+<body>
+  <section class="map-background">
+    <img src="./assets/map-svg.svg" class="map-background-svg" alt="Map Background" />
+  </section>
+
+  <div class="container">
+    <h1>Edit <%= currentMemberData.name %></h1>
+    <form action="/edit" method="post">
+      <div class="input-container">
+      <input type="hidden" name="id" value="<%= currentMemberData.id %>" required>
+      <input type="text" name="name" maxlength="15" value="<%= currentMemberData.name %>" required>
+      <label for="name" class="label-change-name">Change Name</label> 
+    </div>
+      <p>Pick a New Color:</p>
+      <input type="radio" name="color" id="red" value="#db2828" onclick="document.getElementById('selectedColor').value = value;"  <%= currentMemberData.color === "#db2828" ? "checked" : "" %> />
+      <label for="red"><span class="red"></span></label>
+
+      <input type="radio" name="color" id="green" value="#21ba45" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#21ba45" ? "checked" : "" %> />
+      <label for="green"><span class="green"></span></label>
+
+      <input type="radio" name="color" id="yellow" value="#fbbd08" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#fbbd08" ? "checked" : "" %> />
+      <label for="yellow"><span class="yellow"></span></label>
+
+      <input type="radio" name="color" id="olive" value="#b5cc18" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#b5cc18" ? "checked" : "" %> />
+      <label for="olive"><span class="olive"></span></label>
+
+      <input type="radio" name="color" id="orange" value="#f2711c" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#f2711c" ? "checked" : "" %> />
+      <label for="orange"><span class="orange"></span></label>
+
+      <input type="radio" name="color" id="teal" value="#00b5ad" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#00b5ad" ? "checked" : "" %> />
+      <label for="teal"><span class="teal"></span></label>
+
+      <input type="radio" name="color" id="blue" value="#2185d0" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#2185d0" ? "checked" : "" %> />
+      <label for="blue"><span class="blue"></span></label>
+
+      <input type="radio" name="color" id="violet" value="#6435c9" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#6435c9" ? "checked" : "" %> />
+      <label for="violet"><span class="violet"></span></label>
+
+      <input type="radio" name="color" id="purple" value="#a333c8" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#a333c8" ? "checked" : "" %> />
+      <label for="purple"><span class="purple"></span></label>
+
+      <input type="radio" name="color" id="pink" value="#e03997" onclick="document.getElementById('selectedColor').value = value;" <%= currentMemberData.color === "#e03997" ? "checked" : "" %> />
+      <label for="pink"><span class="pink"></span></label>
+
+      <br><input type="text" id="selectedColor" style="opacity: 0; height: 1; margin: 0; padding: 0;" value="<%= currentMemberData.color %>" required/>
+      
+      <div class="spacer"></div>
+<hr>
+      <p>Your Visited Countries:</p>
+      <% if (visitedCountries.length === 0 ) { %>
+        <p>Seems like you didn't visit any countries!</p>
+      <% } else { %>
+        <table class="header">
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th class="delete-column-head">Delete</th>
+            </tr>
+          </thead>
+        </table>
+      <div class="table-container">
+        <table class="body">
+          <!-- <thead>
+          <tr>
+            <th>Country Name</th>
+            <th class="delete-column">Delete</th>
+          </tr>
+        </thead> -->
+          <% visitedCountries.forEach((country) => { %>
+            <tr id="<%= country.code %>">
+              <td><%= country.name %></td>
+              <td class="delete-column"><button type="button" class="deleteCountryButton" value="<%= country.code %>" onclick="deleteCountry(this)"><img src="./assets/bin.png" width="20px"></button></td>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <% } %>
+
+      <div class="spacer"></div>
+
+      <input type="hidden" id="countriesToDelete" name="countriesToDelete">
+
+    <div class="btns-uptd-cncl">
+      <button type="submit">Update</button>
+      <button type="button" onClick="location.href='/'">Cancel</button>
+    </div>
+      <hr>
+
+      <button type="button" class="delete-button" onclick="confirmDelete('<%= currentMemberData.id %>')">Delete Member</button>
+      
+    </form>
+  </div>
+<script>
+  function deleteCountry(button) {
+    const hiddenInput = document.querySelector("#countriesToDelete");
+    hiddenInput.value += `${button.value},`;
+    const currentRow = document.querySelector(`#${button.value}`);
+    currentRow.style.display = "none"; // Remove row 
+    resize()
+  }
+</script>
+
+<script>
+  function resize() {
+    var correctWidthHeader = document.querySelector("td.delete-column").offsetWidth + "px";
+    document.querySelector(".delete-column-head").style.width = correctWidthHeader;
+    document.querySelector(".delete-column-head").style.textAlign = "center";
+
+    var correctWidthTable = document.querySelector(".table-container").offsetWidth + "px";
+    document.querySelector(".body").style.width = correctWidthTable;
+  }
+
+  resize();
+
+  // Call on page load
+  window.addEventListener("load", resize);
+
+  // Call on window resize
+  window.addEventListener("resize", resize);
+
+</script>
+
+<script>
+  function confirmDelete(memberId) {
+    if (confirm("Are you sure you want to delete this member? This action cannot be undone.")) {
+      fetch('/delete-member', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: memberId })
+      }).then(response => {
+        if (response.ok) {
+          window.location.href = '/';
+        } else {
+          alert("Failed to delete member.");
+        }
+      }).catch(error => {
+        console.error("Error:", error);
+      });
+    }
+  }
+</script>
+
+
+</body>   
+
+</html>
+ 

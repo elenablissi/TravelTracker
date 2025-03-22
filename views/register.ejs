@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="icon" type="image/x-icon" href="./assets/logo1.png">
+  <link rel="stylesheet" href="./styles/new.css">
+</head>
+
+<body>
+  <section class="map-background">
+    <img src="./assets/map-svg.svg" class="map-background-svg" alt="Map Background" />
+  </section>
+
+  <section>
+    <h1 class="title">Family Travel Tracker <img class="paper-plane" src="./assets/paper-plane.png"></h1>
+    <div class="container">
+      <h1>Register</h1>
+      <form action="/register" method="post" onsubmit="checkPasswords()">
+        <div class="input-container">
+          <input type="text" id="name" name="name" maxlength="15"  required placeholder=" ">
+          <label for="name" class="label-name">First Name</label>       
+        </div>
+
+        <div class="input-container">
+          <input type="text" id="email" name="email" maxlength="30"  required placeholder=" ">
+          <label for="email" class="label-name">Email</label>       
+        </div>
+
+        <% if (session.error) { %>
+          <div class="error-message error-email ">
+            <img src="./assets/error.png"/>
+            <%= session.error %> 
+          </div>
+          <% delete session.error; %>
+        <% } %>       
+        
+        <div class="input-container">
+          <input type="password" id="password" name="password" maxlength="30"  required placeholder=" ">
+          <label for="password" class="label-name">Password</label>       
+        </div>
+
+        <div class="input-container confirmPasswordContainer">
+          <input type="password" id="confirmPassword" name="confirmPassword" maxlength="30"  required placeholder=" ">
+          <label for="confirmPassword" class="label-name">Confirm Password</label>       
+        </div>
+
+        <div class="spacer"></div>
+        
+        <button type="submit">Register</button>            
+      </form>
+      <span>If you already have an account, please log in by clicking <a href="/login">here</a>.</span>
+    </div>
+  </section>
+</body>   
+<script>
+  function checkPasswords() {
+    var password = document.querySelector('#password').value;
+    var confirmPassword = document.querySelector('#confirmPassword').value;
+    if (password !== confirmPassword) {
+      let container = document.querySelector('.confirmPasswordContainer');
+      if (container.querySelector('.error-message.error-password')) container.querySelector('.error-message.error-password').innerHTML = '<img src="./assets/error.png"/>Passwords don\'t match.</div>';
+      else container.innerHTML += '<div class="error-message.error-password"><img src="./assets/error.png"/>Passwords don\'t match.</div>';
+      event.preventDefault();
+    }
+  }
+</script>
+
+</html>
+ 

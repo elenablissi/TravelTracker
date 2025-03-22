@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In</title>
+  <link rel="icon" type="image/x-icon" href="./assets/logo1.png">
+  <link rel="stylesheet" href="./styles/new.css">
+</head>
+
+<body>
+  <section class="map-background">
+    <img src="./assets/map-svg.svg" class="map-background-svg" alt="Map Background" />
+  </section>
+  <section>
+    <h1 class="title">Family Travel Tracker <img class="paper-plane" src="./assets/paper-plane.png"></h1>
+    <div class="container">
+      <h1>Log In</h1>
+      <form action="/login" method="post">
+        <div class="input-container">
+          <input type="text" id="email" name="email" maxlength="30"  required placeholder=" ">
+          <label for="email" class="label-name">Email</label>       
+        </div>
+        
+        <div class="input-container">
+          <input type="password" id="password" name="password" maxlength="30"  required placeholder=" ">
+          <label for="password" class="label-name">Password</label>       
+        </div>
+
+        <div class="spacer"></div>
+        
+        <button type="submit">Log In</button>
+
+      </form>
+      <span>If you don't have an account, please register by clicking <a href="/register">here</a>.</span>
+    </div>
+  </section>
+</body>   
+</html>
+ 
