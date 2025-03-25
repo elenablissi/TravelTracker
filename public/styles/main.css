@@ -350,6 +350,10 @@ button:active {
   display: none;
 }
 
+.member {
+  position: relative;
+}
+
 .member:hover {
   filter: brightness(85%);
 }
