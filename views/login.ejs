@@ -27,6 +27,14 @@
           <input type="password" id="password" name="password" maxlength="30"  required placeholder=" ">
           <label for="password" class="label-name">Password</label>       
         </div>
+        
+        <% if (session.error) { %>
+          <div class="error-message">
+            <img src="./assets/error.png"/>
+            <%= session.error %> 
+          </div>
+          <% delete session.error; %>
+        <% } %>     
 
         <div class="spacer"></div>
         

@@ -153,8 +153,8 @@ app.post('/register', async (req, res) => {
 
   // Store user in the database 
   try {
-    const result = await db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3)', [name, email, hashedPassword]);
-    const user = result.rows[0];
+    const result = await db.query('INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *', [name, email, hashedPassword]);
+    const user = await result.rows[0];
     req.login(user, (err) => {
       res.redirect("/");
     });
@@ -167,13 +167,28 @@ app.post('/register', async (req, res) => {
 
 // Log in
 app.get("/login", async (req, res) => {
-  res.render("login.ejs");
+  res.render("login.ejs", {
+    session : req.session
+  });
 });
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/', 
-  failureRedirect: '/login', 
-}));
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      req.session.error = info.message; // Store the error message in session
+      return res.redirect('/login');
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
 
 // Index buttons
 app.post("/member", async (req, res) => {
