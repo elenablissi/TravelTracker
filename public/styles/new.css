@@ -33,6 +33,7 @@ h1 {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"], 
 button {
   width: 100%; /* Make input fields and button the full width of the container */
@@ -48,6 +49,7 @@ button {
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
 input[type="password"]:focus {
   outline: none;
   border: solid #00b5ad 1.5px;
@@ -70,6 +72,8 @@ input[type="password"]:focus {
 /* Label float effect */
 input[type="text"]:focus + .label-name,
 input[type="text"]:valid + .label-name, 
+input[type="email"]:focus + .label-name,
+input[type="email"]:valid + .label-name,
 input[type="password"]:focus + .label-name,
 input[type="password"]:valid + .label-name {
   transform: translateY(-20px);
@@ -81,7 +85,8 @@ input[type="password"]:valid + .label-name {
 }
 
 /* Move the label up when input has a value, even without focus */
-input[type="text"]:not(:placeholder-shown) + .label-name ,
+input[type="text"]:not(:placeholder-shown) + .label-name,
+input[type="email"]:not(:placeholder-shown) + .label-name,
 input[type="password"]:not(:placeholder-shown) + .label-name {
   transform: translateY(-20px); /* Move label up */
   font-size: 14px; /* Shrink the font size */
